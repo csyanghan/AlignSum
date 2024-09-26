@@ -3,7 +3,7 @@ import sys
 import torch
 sys.path.append(os.getcwd())
 from tqdm import tqdm
-from utils import read_josnl, save_arr
+from utils import read_jsonl, save_arr
 
 from transformers import BartTokenizer, PegasusTokenizer
 from transformers import BartForConditionalGeneration, PegasusForConditionalGeneration
@@ -14,7 +14,7 @@ summarization_name_mapping = {
     }
 dataset = "xsum"
 
-test_dataset = read_josnl("data/{}/test_random1.jsonl".format(dataset))
+test_dataset = read_jsonl("data/{}/test_random1.jsonl".format(dataset))
 device = torch.device("cuda:2")
 
 

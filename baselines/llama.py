@@ -18,7 +18,7 @@ def save_arr(arr, save_path):
         for d in arr:
             writer.write(d)
 
-def read_josnl(data_path):
+def read_jsonl(data_path):
     contents = []
     with jsonlines.open(data_path) as reader:
         for obj in reader:
@@ -33,7 +33,7 @@ if __name__ == "__main__":
     }
     dataset = "cnn_dailymail"
     dataset_path = "data/{}/test_random1.jsonl".format(dataset)
-    test_data = read_josnl(dataset_path)
+    test_data = read_jsonl(dataset_path)
 
     model_name_or_path = "meta-llama/Llama-2-7b-chat-hf"  # meta-llama/Meta-Llama-3-8B-Instruct
     tokenizer = AutoTokenizer.from_pretrained(model_name_or_path)

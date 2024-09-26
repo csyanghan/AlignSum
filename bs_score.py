@@ -1,7 +1,6 @@
 from bert_score import score
 from rouge import Rouge
-from utils import read_josnl
-import json
+from utils import read_jsonl
 import evaluate
 
 metric = evaluate.load("rouge")
@@ -25,7 +24,7 @@ def bs_score(preds, refs):
     return bs
 
 if __name__ == "__main__":
-    results = read_josnl("path/to/results.jsonl")
+    results = read_jsonl("path/to/results.jsonl")
     preds = list(map(lambda x: x["pred"], results))
     refs = list(map(lambda x: x["refer"], results))
     bs_score_f1 = bs_score(preds, refs)

@@ -8,7 +8,7 @@ from openai import AzureOpenAI
 sys.path.append(os.getcwd())
 from copy import deepcopy
 
-from utils import read_josnl, save_arr
+from utils import read_jsonl, save_arr
 
 if __name__ == '__main__':
 
@@ -25,7 +25,7 @@ if __name__ == '__main__':
     test_path = './data/{}/test_random1.jsonl'.format(args.data_name)
     client = AzureOpenAI()
 
-    test_data = read_josnl(test_path)
+    test_data = read_jsonl(test_path)
 
     generate_result  = []
 

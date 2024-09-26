@@ -3,7 +3,7 @@ import sys
 
 sys.path.append(os.getcwd())
 
-from utils import save_arr, read_josnl
+from utils import save_arr, read_jsonl
 import random
 from transformers import AutoTokenizer
 import numpy as np
@@ -36,7 +36,7 @@ if __name__ == "__main__":
         return len(input_ids)
 
     def get_target_distribution_mean_and_std():
-        target_data = read_josnl(human_annonated_path)
+        target_data = read_jsonl(human_annonated_path)
         target_data_token_distribution = [get_sentence_tokens(x["pseudo_summary"]) for x in target_data]
         target_data_mean = np.mean(target_data_token_distribution)
         target_data_std = np.std(target_data_token_distribution)
@@ -59,14 +59,14 @@ if __name__ == "__main__":
 
 
     def merge_dp():
-        gsg_data = read_josnl(gsg_path)
-        llm_data = read_josnl(llm_path)
+        gsg_data = read_jsonl(gsg_path)
+        llm_data = read_jsonl(llm_path)
 
         gsg_and_llm_data = gsg_data + llm_data
         random.shuffle(gsg_and_llm_data)
         save_arr(gsg_and_llm_data, "data/{}/gsg_llm.jsonl".format(dataset_name))
 
-        human_annonated_data = read_josnl(human_annonated_path)
+        human_annonated_data = read_jsonl(human_annonated_path)
 
         dp_data = gsg_and_llm_data + human_annonated_data
         random.shuffle(dp_data)
@@ -75,8 +75,8 @@ if __name__ == "__main__":
 
 
     def merge_dp_gaussian():
-        gsg_data = read_josnl(gsg_path)
-        llm_data = read_josnl(llm_path)
+        gsg_data = read_jsonl(gsg_path)
+        llm_data = read_jsonl(llm_path)
 
         gsg_data_filter = gaussion_filter(gsg_data)
         save_arr(gsg_data_filter, "data/{}/gsg_gaussian.jsonl".format(dataset_name))
@@ -89,7 +89,7 @@ if __name__ == "__main__":
         random.shuffle(gsg_and_llm_data)
         save_arr(gsg_and_llm_data, "data/{}/gsg_llm_gaussian.jsonl".format(dataset_name))
 
-        human_annonated_data = read_josnl(human_annonated_path)
+        human_annonated_data = read_jsonl(human_annonated_path)
 
         dp_data = gsg_and_llm_data + human_annonated_data
         random.shuffle(dp_data)
@@ -97,7 +97,7 @@ if __name__ == "__main__":
         print("merge dp guassian done!")
 
     def filter_llm_total_gaussian():
-        llm_data_total = read_josnl("data/xsum/llm_total.jsonl")
+        llm_data_total = read_jsonl("data/xsum/llm_total.jsonl")
         llm_data_total = gaussion_filter(llm_data_total)
         save_arr(llm_data_total, "data/{}/llm_total_gaussian.jsonl".format(dataset_name))
 

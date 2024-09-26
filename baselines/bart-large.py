@@ -4,7 +4,7 @@ import argparse
 sys.path.append(os.getcwd())
 
 from tqdm import tqdm
-from utils import read_josnl, save_arr
+from utils import read_jsonl, save_arr
 from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import json
 import torch
@@ -25,7 +25,7 @@ if __name__ == "__main__":
     dataset_path = "data/cnn_dailymail/test_random1.jsonl"
     if dataset == "xsum": dataset_path = "data/xsum/test_random1.jsonl"
 
-    specific_data = read_josnl(dataset_path)
+    specific_data = read_jsonl(dataset_path)
     
     summarization_name_mapping = {
         "cnn_dailymail": ("article", "highlights"),
